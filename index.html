@@ -158,13 +158,13 @@
 </div>
 
 <script>
-  const OPSLAGSLEUTEL = "opdrachten-app-v6";
+  const OPSLAGSLEUTEL = "opdrachten-app-v7";
   const standaard = {
     opdrachten: [
-      "Eet {n} calorie aan eten", "Fiets {n} meter", "Loop {n} traptrede op", "Ga {n} keer touwtje springen", "Maak samen een groepsfoto met {n} andere persoon",
-      "Dans onafgebroken {n} seconde op een openbare plek, waar andere mensen zijn", "Koop voor jezelf een item op Marktplaats voor {n} cent", "Haal samen een score van {n} op Kaasje", "Doneer {n} euro aan een goed doel", "Doe {n} kikkersprong",
-      "Facetime iemand onafgebroken voor {n} seconde zonder iets te zeggen", "Knip {n} centimeter van je broek af", "Geef {n}% fooi", "Krijg {n} comment op een Instagram post", "Maak samen een toren van {n} voorwerp",
-      "Geef {n} persoon een high five", "Koop {n} item bij de Zara", "Schrijf een liefdesgedicht van {n} zin over je teamgenoot", "Doe {n} spuitje parfum op jezelf", "Verbrand {n} calorie"
+      "Eet {n} {calorie|calorieën} aan eten", "Fiets {n} meter", "Loop {n} {traptrede|traptredes} op", "Ga {n} keer touwtje springen", "Maak samen een groepsfoto met {n} andere {persoon|personen}",
+      "Dans onafgebroken {n} {seconde|seconden} op een openbare plek, waar andere mensen zijn", "Koop voor jezelf een item op Marktplaats voor {n} cent", "Haal samen een score van {n} op Kaasje", "Doneer {n} euro aan een goed doel", "Doe {n} {kikkersprong|kikkersprongen}",
+      "Facetime iemand onafgebroken voor {n} {seconde|seconden} zonder iets te zeggen", "Knip {n} centimeter van je broek af", "Geef {n}% fooi", "Krijg {n} {comment|comments} op een Instagram post", "Maak samen een toren van {n} {voorwerp|voorwerpen}",
+      "Geef {n} {persoon|personen} een high five", "Koop {n} {item|items} bij de Zara", "Schrijf een liefdesgedicht van {n} {zin|zinnen} over je teamgenoot", "Doe {n} {spuitje|spuitjes} parfum op jezelf", "Verbrand {n} {calorie|calorieën}"
     ],
     selectie: []
   };
@@ -188,6 +188,14 @@
     return Math.pow(2, data.selectie.length); // actuele getal voor nog niet geselecteerde opdrachten
   }
 
+  function vulTekstIn(template, n) {
+    let resultaat = template.replace(/\{([^{}|]+)\|([^{}]+)\}/g, (_, enkelvoud, meervoud) =>
+      n === 1 ? enkelvoud : meervoud
+    );
+    resultaat = resultaat.replace("{n}", n);
+    return resultaat;
+  }
+
   function render() {
     lijstEl.innerHTML = "";
     if (data.opdrachten.length === 0) {
@@ -206,7 +214,7 @@
 
       const span = document.createElement("span");
       span.className = "tekst";
-      span.textContent = tekst.replace("{n}", punten);
+      span.textContent = vulTekstIn(tekst, punten);
 
       const miniCijfer = document.createElement("span");
       miniCijfer.className = "mini-cijfer";
