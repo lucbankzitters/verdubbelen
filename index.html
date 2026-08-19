@@ -122,10 +122,16 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
     gap: 12px;
     margin-bottom: 20px;
   }
-  .knoppenrij-rechts { display: flex; align-items: center; gap: 12px; }
+  .knoppenrij-rechts { display: flex; align-items: center; gap: 12px; flex-wrap: nowrap; }
+  .terug, .ongedaan, .reset { white-space: nowrap; }
+
+  @media (max-width: 480px) {
+    .terug, .ongedaan, .reset { font-size: 12px; padding-left: 16px; padding-right: 16px; }
+  }
 
   .ongedaan {
     font-family: 'Anton', 'Arial Black', sans-serif;
