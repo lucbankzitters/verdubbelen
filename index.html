@@ -37,7 +37,7 @@
     background: #fff;
     overflow: hidden;
   }
-  #team-keuze .wrap { position: relative; z-index: 1; max-width: 560px; padding-top: 60px; text-align: center; }
+  #team-keuze .wrap { position: relative; z-index: 1; max-width: 780px; padding-top: 60px; text-align: center; }
   #team-keuze .logo-rij { margin-bottom: 40px; }
   #team-keuze .logo-rij svg { width: 55%; max-width: 300px; }
   .team-titel {
@@ -48,21 +48,49 @@
     margin: 0 0 22px;
     text-transform: uppercase;
   }
-  .team-knoppen { display: flex; flex-direction: column; gap: 16px; }
+  .team-knoppen { display: flex; flex-direction: row; gap: 12px; }
   .team-knop {
+    flex: 1;
     font-family: 'Anton', 'Arial Black', sans-serif;
     font-size: 24px;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
     color: #fff;
     border: none;
-    border-radius: 12px;
-    padding: 26px 20px;
+    border-radius: 10px;
+    padding: 16px 12px;
     cursor: pointer;
     transition: transform 0.1s, filter 0.15s;
   }
   .team-knop:active { transform: scale(0.98); filter: brightness(0.92); }
   .team-knop.blauw { background: #0094FF; }
   .team-knop.rood { background: #F23D3D; }
+
+  /* ---------- Regels ---------- */
+  .regels-kop {
+    font-size: 17px;
+    font-weight: 700;
+    color: #0A0A0A;
+    margin: 32px 0 0;
+    text-align: left;
+  }
+
+  .regels-lijst {
+    list-style: disc;
+    margin: 10px 0 0;
+    padding: 16px 18px 16px 34px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.5);
+    border: 2px solid #0A0A0A;
+    border-radius: 10px;
+  }
+  .regels-lijst li {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #0A0A0A;
+  }
 
   /* ---------- Opdrachten-scherm achtergrond ---------- */
   #opdrachten-scherm {
@@ -234,11 +262,22 @@
         </g>
       </svg>
     </div>
-    <p class="team-titel">Kies je team</p>
     <div class="team-knoppen">
       <button class="team-knop blauw" id="btn-team1">TEAM 1</button>
       <button class="team-knop rood" id="btn-team2">TEAM 2</button>
     </div>
+
+    <p class="regels-kop">Regels</p>
+    <ul class="regels-lijst">
+      <li>De standaardregel is dat challenges worden uitgevoerd door beide teamgenoten. Als een challenge individueel moet worden uitgevoerd, dan is dit aangegeven.</li>
+      <li>Na elke challenge verdubbelen de voorwaarden voor alle andere challenges.</li>
+      <li>Er mag maar één challenge per keer actief zijn.</li>
+      <li>Opdrachten mogen niet gecombineerd worden.</li>
+      <li>De voorwaarden van de challenges gelden allemaal als een <u>minimaal</u> te halen aantal. Als er dus 1024 milliliter gedronken moet worden, en er wordt 1100 milliliter gedronken, dan is de challenge ook gehaald. De volgende challenge verdubbelt vervolgens gewoon van 1024, en niet van 1100.</li>
+      <li>De te halen waarde voor een challenge moet tijdens één poging gehaald worden. Verschillende pogingen mogen niet gecombineerd worden, tenzij dit is aangegeven.</li>
+      <li>Elke challenge mag meerdere keer geprobeerd worden, tenzij anders is verwoord.</li>
+      <li>Bij opdrachten die beide teamgenoten uitvoeren, hoeft de verdeling tussen teamgenoten niet 50/50 te zijn.</li>
+    </ul>
   </div>
 </div>
 
