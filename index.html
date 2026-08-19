@@ -241,6 +241,49 @@
   .reset:active { background: var(--accent); border-color: #0A0A0A; }
 
   .leeg { font-size: 14px; color: #B3B0A8; font-style: italic; padding: 12px 2px; grid-column: 1 / -1; }
+
+  /* ---------- Bevestigings-pop-up ---------- */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    padding: 20px;
+  }
+  .modal-kaart {
+    background: #fff;
+    border: 2px solid #0A0A0A;
+    border-radius: 12px;
+    padding: 28px 24px;
+    max-width: 340px;
+    width: 100%;
+    text-align: center;
+  }
+  .modal-kaart p {
+    font-size: 15px;
+    font-weight: 500;
+    color: #0A0A0A;
+    margin: 0 0 22px;
+    line-height: 1.4;
+  }
+  .modal-knoppen { display: flex; gap: 10px; }
+  .modal-knoppen button {
+    flex: 1;
+    font-family: 'Anton', 'Arial Black', sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    border-radius: 8px;
+    padding: 12px 10px;
+    cursor: pointer;
+    border: 2px solid #0A0A0A;
+  }
+  .modal-ja { background: #0A0A0A; color: #fff; }
+  .modal-ja:active { background: var(--accent); }
+  .modal-nee { background: #fff; color: #0A0A0A; }
+  .modal-nee:active { background: #EDEDEB; }
 </style>
 </head>
 <body>
@@ -322,6 +365,16 @@
     </div>
 
     <div class="grid" id="lijst"></div>
+  </div>
+
+  <div class="modal-overlay verborgen" id="reset-modal">
+    <div class="modal-kaart">
+      <p>Weet je zeker dat je de hele selectie wilt resetten?</p>
+      <div class="modal-knoppen">
+        <button class="modal-nee" id="modal-nee">NEE</button>
+        <button class="modal-ja" id="modal-ja">JA</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -447,9 +500,18 @@
   });
 
   document.getElementById("reset").addEventListener("click", () => {
+    document.getElementById("reset-modal").classList.remove("verborgen");
+  });
+
+  document.getElementById("modal-nee").addEventListener("click", () => {
+    document.getElementById("reset-modal").classList.add("verborgen");
+  });
+
+  document.getElementById("modal-ja").addEventListener("click", () => {
     data.selectie = [];
     bewaar();
     render();
+    document.getElementById("reset-modal").classList.add("verborgen");
   });
 </script>
 </body>
