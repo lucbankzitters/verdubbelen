@@ -87,6 +87,14 @@
     .achtergrond-vorm.mobiel { display: block; }
   }
 
+  .knoppenrij {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
   .terug {
     display: inline-block;
     font-family: 'Anton', 'Arial Black', sans-serif;
@@ -98,7 +106,6 @@
     border: 2px solid #0A0A0A;
     border-radius: 8px;
     padding: 12px 28px;
-    margin-bottom: 20px;
     cursor: pointer;
   }
   .terug:active { background: var(--accent); border-color: #0A0A0A; }
@@ -249,13 +256,12 @@
   </div>
 
   <div class="wrap">
-    <button class="terug" id="terug-knop">TERUG</button>
-
-    <div class="grid" id="lijst"></div>
-
-    <div class="acties">
+    <div class="knoppenrij">
+      <button class="terug" id="terug-knop">TERUG</button>
       <button class="reset" id="reset">SELECTIE RESETTEN</button>
     </div>
+
+    <div class="grid" id="lijst"></div>
   </div>
 </div>
 
