@@ -20,8 +20,9 @@
     padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
     min-height: 100vh;
     --accent: #0094FF;
+    --accent-50: rgba(0, 148, 255, 0.5);
   }
-  body.team-rood { --accent: #F23D3D; }
+  body.team-rood { --accent: #F23D3D; --accent-50: rgba(242, 61, 61, 0.5); }
 
   .wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding: 28px 20px 44px; }
   .verborgen { display: none !important; }
@@ -97,6 +98,11 @@
   .kaart.selected { cursor: default; }
   .kaart.selected:active { transform: none; }
 
+  .kaart.selected {
+    background: var(--accent-50);
+    border-color: var(--accent);
+  }
+
   .kaart .tekst {
     font-size: 13px;
     font-weight: 500;
@@ -104,6 +110,8 @@
     text-align: center;
     color: #0A0A0A;
   }
+
+  .kaart.selected .tekst { color: var(--accent); opacity: 1; }
 
   .kaart .mini-cijfer {
     position: absolute;
@@ -123,27 +131,10 @@
     font-size: 16px;
     color: #fff;
   }
-  .kaart.selected .mini-cijfer { display: none; }
-
-  .overlay {
-    position: absolute;
-    inset: 0;
-    border-radius: 8px;
-    background: rgba(10, 10, 10, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.15s;
-  }
-  .kaart.selected .overlay { opacity: 1; }
-
-  .overlay .groot-cijfer {
-    font-family: 'Anton', 'Arial Black', sans-serif;
-    font-style: normal;
-    font-size: 52px;
-    color: #fff;
+  .kaart.selected .mini-cijfer {
+    background: #fff;
+    border-color: #fff;
+    color: var(--accent);
   }
 
   .acties { display: flex; justify-content: center; }
@@ -211,7 +202,7 @@
 </div>
 
 <script>
-  const OPSLAGSLEUTEL = "opdrachten-app-v8-";
+  const OPSLAGSLEUTEL = "opdrachten-app-v9-";
 
   const teams = {
     team1: {
@@ -285,16 +276,8 @@
       miniCijfer.className = "mini-cijfer";
       miniCijfer.textContent = punten;
 
-      const overlay = document.createElement("div");
-      overlay.className = "overlay";
-      const grootCijfer = document.createElement("span");
-      grootCijfer.className = "groot-cijfer";
-      grootCijfer.textContent = punten;
-      overlay.appendChild(grootCijfer);
-
       kaart.appendChild(span);
       kaart.appendChild(miniCijfer);
-      kaart.appendChild(overlay);
 
       kaart.addEventListener("click", () => {
         if (data.selectie.includes(index)) return;
