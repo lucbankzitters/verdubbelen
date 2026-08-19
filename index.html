@@ -122,11 +122,26 @@
     gap: 12px;
     margin-bottom: 20px;
   }
+  .knoppenrij-rechts { display: flex; align-items: center; gap: 12px; }
+
+  .ongedaan {
+    font-family: 'Anton', 'Arial Black', sans-serif;
+    font-style: normal;
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    color: #0A0A0A;
+    background: #fff;
+    border: 2px solid #0A0A0A;
+    border-radius: 8px;
+    padding: 10px 22px;
+    cursor: pointer;
+  }
+  .ongedaan:active { background: #EDEDEB; }
 
   .terug {
     display: inline-block;
     font-family: 'Anton', 'Arial Black', sans-serif;
-    font-style: italic;
+    font-style: normal;
     font-size: 15px;
     letter-spacing: 0.3px;
     color: #fff;
@@ -211,7 +226,7 @@
   .acties { display: flex; justify-content: center; }
   .reset {
     font-family: 'Anton', 'Arial Black', sans-serif;
-    font-style: italic;
+    font-style: normal;
     font-size: 15px;
     letter-spacing: 0.3px;
     color: #fff;
@@ -297,7 +312,10 @@
   <div class="wrap">
     <div class="knoppenrij">
       <button class="terug" id="terug-knop">TERUG</button>
-      <button class="reset" id="reset">SELECTIE RESETTEN</button>
+      <div class="knoppenrij-rechts">
+        <button class="ongedaan" id="ongedaan">ONGEDAAN MAKEN</button>
+        <button class="reset" id="reset">SELECTIE RESETTEN</button>
+      </div>
     </div>
 
     <div class="grid" id="lijst"></div>
@@ -418,6 +436,12 @@
   document.getElementById("btn-team1").addEventListener("click", () => kiesTeam("team1"));
   document.getElementById("btn-team2").addEventListener("click", () => kiesTeam("team2"));
   document.getElementById("terug-knop").addEventListener("click", naarTeamkeuze);
+
+  document.getElementById("ongedaan").addEventListener("click", () => {
+    data.selectie.pop();
+    bewaar();
+    render();
+  });
 
   document.getElementById("reset").addEventListener("click", () => {
     data.selectie = [];
