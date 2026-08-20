@@ -25,7 +25,7 @@
   body.scherm-opdrachten { background: var(--accent); }
   body.team-rood { --accent: #F23D3D; --accent-50: rgba(242, 61, 61, 0.5); }
 
-  .wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding: 18px 20px 24px; }
+  .wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding: 14px 16px 18px; }
   .verborgen { display: none !important; }
 
   .logo-rij { display: flex; justify-content: center; margin-bottom: 20px; }
@@ -100,7 +100,7 @@
     background: var(--accent);
     overflow: hidden;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
   }
   #opdrachten-scherm .wrap { position: relative; z-index: 1; width: 100%; }
@@ -138,13 +138,12 @@
   }
 
   @media (max-width: 480px) {
-    .knoppenrij { flex-wrap: nowrap; gap: 6px; }
-    .knoppenrij-rechts { gap: 6px; }
+    .knoppenrij { flex-wrap: nowrap; gap: 5px; }
+    .knoppenrij-rechts { gap: 5px; }
     .terug, .ongedaan, .reset {
-      font-size: 10px;
-      letter-spacing: 0.1px;
-      padding-left: 10px;
-      padding-right: 10px;
+      font-size: 9px;
+      letter-spacing: 0;
+      padding: 9px 8px;
       border-radius: 6px;
     }
   }
@@ -182,7 +181,7 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 10px;
-    margin-bottom: 22px;
+    margin-bottom: 12px;
   }
   @media (max-width: 860px) {
     .grid { grid-template-columns: repeat(3, 1fr); }
