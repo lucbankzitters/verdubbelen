@@ -24,7 +24,7 @@
   }
   body.team-rood { --accent: #F23D3D; --accent-50: rgba(242, 61, 61, 0.5); }
 
-  .wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding: 28px 20px 44px; }
+  .wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding: 18px 20px 24px; }
   .verborgen { display: none !important; }
 
   .logo-rij { display: flex; justify-content: center; margin-bottom: 20px; }
@@ -124,7 +124,7 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 12px;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
   }
   .knoppenrij-rechts { display: flex; align-items: center; gap: 12px; flex-wrap: nowrap; }
   .terug, .ongedaan, .reset { white-space: nowrap; }
@@ -142,7 +142,7 @@
     background: #fff;
     border: 2px solid #0A0A0A;
     border-radius: 8px;
-    padding: 10px 22px;
+    padding: 12px 22px;
     cursor: pointer;
   }
   .ongedaan:active { background: #EDEDEB; }
@@ -165,7 +165,7 @@
   .grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 12px;
+    gap: 10px;
     margin-bottom: 22px;
   }
   @media (max-width: 860px) {
@@ -177,7 +177,7 @@
 
   .kaart {
     position: relative;
-    aspect-ratio: 3 / 2;
+    aspect-ratio: 4 / 3;
     background: #fff;
     border: 2px solid #0A0A0A;
     border-radius: 10px;
@@ -198,15 +198,33 @@
     border-color: #0A0A0A;
   }
 
+  .kaart .inhoud {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+
   .kaart .tekst {
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 500;
-    line-height: 1.35;
+    line-height: 1.32;
     text-align: center;
     color: #0A0A0A;
   }
+  .kaart .tekst b { font-weight: 700; }
 
-  .kaart.selected .tekst { color: #0A0A0A; opacity: 0.5; }
+  .kaart .toelichting {
+    font-size: 9.5px;
+    font-weight: 400;
+    line-height: 1.25;
+    text-align: center;
+    color: #59564F;
+  }
+
+  .kaart.selected .tekst,
+  .kaart.selected .toelichting { color: #0A0A0A; opacity: 0.5; }
 
   .kaart .mini-cijfer {
     position: absolute;
@@ -385,25 +403,57 @@
 </div>
 
 <script>
-  const OPSLAGSLEUTEL = "opdrachten-app-v10-";
+  const OPSLAGSLEUTEL = "opdrachten-app-v11-";
 
   const teams = {
     team1: {
       kleurklasse: null, // blauw = standaard, geen extra klasse nodig
       opdrachten: [
-        "Eet {n} {calorie|calorieën} aan eten", "Fiets {n} meter", "Loop {n} {traptrede|traptredes} op", "Ga {n} keer touwtje springen", "Maak samen een groepsfoto met {n} andere {persoon|personen}",
-        "Dans onafgebroken {n} {seconde|seconden} op een openbare plek, waar andere mensen zijn", "Koop voor jezelf een item op Marktplaats voor {n} cent", "Haal samen een score van {n} op Kaasje", "Doneer {n} euro aan een goed doel", "Doe {n} {kikkersprong|kikkersprongen}",
-        "Facetime iemand onafgebroken voor {n} {seconde|seconden} zonder iets te zeggen", "Knip {n} centimeter van je broek af", "Geef {n}% fooi", "Krijg {n} {comment|comments} op een Instagram post", "Maak samen een toren van {n} {voorwerp|voorwerpen}",
-        "Geef {n} {persoon|personen} een high five", "Koop {n} {item|items} bij de Zara", "Schrijf een liefdesgedicht van {n} {zin|zinnen} over je teamgenoot", "Doe {n} {spuitje|spuitjes} parfum op jezelf", "Verbrand {n} {calorie|calorieën}"
+        { tekst: "Eet **als team** {n} {calorie|calorieën} aan eten", toelichting: "calorieën van beide teamgenoten optellen" },
+        { tekst: "Fiets **als team** {n} meter", toelichting: "meters van beide teamgenoten optellen" },
+        { tekst: "Loop **als team** {n} {traptrede|traptreden} op", toelichting: "traptreden van beide teamgenoten optellen" },
+        { tekst: "Ga **als team** {n} keer touwtje springen", toelichting: "keer springen van beide teamgenoten optellen" },
+        { tekst: "Maak een groepsfoto met {n} andere {persoon|personen}", toelichting: "één foto maken als team" },
+        { tekst: "Dans **als team** {n} {seconde|seconden} op een openbare plek, waar andere mensen zijn", toelichting: "secondes van beide teamgenoten optellen, één poging per teamgenoot" },
+        { tekst: "Koop voor jezelf een item op Marktplaats voor {n} cent", toelichting: "één item kopen als team" },
+        { tekst: "Haal **als team** een score van {n} op Kaasje", toelichting: "highscore van beide teamleden optellen" },
+        { tekst: "Doneer {n} euro aan een goed doel", toelichting: "één bedrag overmaken als team" },
+        { tekst: "Doe **als team** {n} {kikkersprong|kikkersprongen}", toelichting: "sprongen van beide teamgenoten optellen" },
+        { tekst: "Facetime iemand voor {n} {seconde|seconden} zonder iets te zeggen", toelichting: "onafgebroken voltooien, opdracht voor één persoon" },
+        { tekst: "Knip **als team** {n} centimeter van je broek af", toelichting: "centimeters van beide teamgenoten optellen" },
+        { tekst: "Geef {n}% fooi op een aankoop", toelichting: "één keer fooi geven als team" },
+        { tekst: "Krijg **als team** {n} {comment|comments} op een Instagram post op je account", toelichting: "comments van beide teamleden optellen" },
+        { tekst: "Maak een toren van {n} {voorwerp|voorwerpen}", toelichting: "één toren als team, elk gestapeld item moet een uniek item zijn" },
+        { tekst: "Plak **als team** {n} {sticker|stickers} op je lichaam voor de rest van de video", toelichting: "stickers van beide teamleden optellen" },
+        { tekst: "Koop **als team** {n} {item|items} bij een kledingwinkel", toelichting: "aankopen van beide teamgenoten optellen" },
+        { tekst: "Schrijf **als team** een liefdesgedicht van {n} {zin|zinnen} over je teamgenoot", toelichting: "zinnen van beide teamgenoten optellen" },
+        { tekst: "Breng **als team** {n} {spuitje|spuitjes} parfum aan op je lichaam", toelichting: "spuitjes van beide teamleden optellen" },
+        { tekst: "Verbrand **als team** {n} {calorie|calorieën}", toelichting: "calorieën van beide teamleden optellen" }
       ]
     },
     team2: {
       kleurklasse: "team-rood",
       opdrachten: [
-        "Drink {n} milliliter aan drinken", "Bankdruk een gewicht van {n} kilo (gewicht van meerdere reps bij elkaar optellen)", "Loop {n} {stap|stappen} achteruit", "Gooi een dart score van {n} (scores van meerdere beurten bij elkaar optellen)", "Win samen een potje touwtrekken van {n} {persoon|personen}",
-        "Hang onafgebroken {n} {seconde|seconden} ondersteboven", "Geef {n} cent uit aan een item dat je zelf nooit zou kopen", "Sla samen {n} keer over tijdens een badminton rally", "Krijg {n} {viewer|viewers} op TikTok live", "Sta onafgebroken {n} {seconde|seconden} stil in de auto bij een groen stoplicht",
-        "Lach onafgebroken {n} {seconde|seconden} lang wanneer een vreemde iets zegt", "Doe {n} extra {kledingstuk|kledingstukken} aan voor de rest van de video", "Maak {n}% van het bedrag van iemands lopende rekening naar diegene over", "Krijg {n} {share|shares} op een Instagram post", "Verander {n} {dag|dagen} je profielfoto op Instagram naar je lelijkste foto",
-        "Plak {n} nep {tattoo|tattoos} op je lichaam die je voor de rest van de dag ophoudt", "Drink een drankje met {n}% alcohol (% van meerdere drankjes bij elkaar optellen)", "Krijg {n} {item|items} gratis", "Verdien samen {n} cent statiegeld", "Bouw een werkende dominobaan van {n} {steen|stenen}"
+        { tekst: "Drink **als team** {n} milliliter aan drinken", toelichting: "milliliter van beide teamgenoten optellen" },
+        { tekst: "Bankdruk **als team** {n} kilo aan gewicht", toelichting: "gewicht van beide teamgenoten en meerdere reps optellen" },
+        { tekst: "Loop **als team** {n} {stap|stappen} achteruit", toelichting: "stappen van beide teamgenoten optellen" },
+        { tekst: "Gooi **als team** een dart score van {n}", toelichting: "scores van beide teamgenoten en meerdere beurten optellen" },
+        { tekst: "Win **als team** een potje touwtrekken van {n} {persoon|personen}", toelichting: "één potje winnen als team, aantal personen aan jouw kant van het touw mag gelijk zijn als de tegenstand" },
+        { tekst: "Hang **als team** {n} {seconde|seconden} ondersteboven", toelichting: "secondes van beide teamgenoten optellen, één poging per teamgenoot" },
+        { tekst: "Geef {n} cent uit aan een item dat je zelf nooit zou kopen", toelichting: "één aankoop als team" },
+        { tekst: "Sla {n} keer over tijdens een badminton rally", toelichting: "score halen in één lopende rally" },
+        { tekst: "Krijg **als team** {n} {kijker|kijkers} op TikTok live", toelichting: "kijkers van beide teamgenoten optellen" },
+        { tekst: "Sta {n} {seconde|seconden} stil in de auto bij een groen stoplicht", toelichting: "onafgebroken voltooien, als team in één auto" },
+        { tekst: "Lach {n} {seconde|seconden} lang wanneer een vreemde iets zegt", toelichting: "onafgebroken voltooien, opdracht voor één persoon" },
+        { tekst: "Doe **als team** {n} extra {kledingstuk|kledingstukken} aan voor de rest van de video", toelichting: "kledingstukken van beide teamgenoten optellen" },
+        { tekst: "Maak {n}% van het bedrag van iemands lopende rekening naar diegene over", toelichting: "één bedrag overmaken als team" },
+        { tekst: "Krijg **als team** {n} {share|shares} op een Instagram post", toelichting: "shares van beide teamgenoten optellen" },
+        { tekst: "Verander voor {n} {dag|dagen} je Instagram profielfoto naar je lelijkste foto", toelichting: "opdracht voor één persoon" },
+        { tekst: "Geef **als team** {n} {persoon|personen} een high five", toelichting: "high fives van beide teamgenoten optellen" },
+        { tekst: "Drink **als team** een drankje met {n}% alcohol", toelichting: "% van beide teamgenoten en meerdere drankjes bij elkaar optellen" },
+        { tekst: "Krijg **als team** {n} {item|items} gratis", toelichting: "items van beide teamgenoten optellen" },
+        { tekst: "Verdien **als team** {n} cent statiegeld", toelichting: "statiegeld van beide teamgenoten optellen" },
+        { tekst: "Bouw een werkende dominobaan van {n} {steen|stenen}", toelichting: "één domino baan als team" }
       ]
     }
   };
@@ -435,6 +485,7 @@
       n === 1 ? enkelvoud : meervoud
     );
     resultaat = resultaat.replace("{n}", n);
+    resultaat = resultaat.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
     return resultaat;
   }
 
@@ -444,22 +495,33 @@
     const opdrachten = teams[huidigTeam].opdrachten;
     lijstEl.innerHTML = "";
 
-    opdrachten.forEach((template, index) => {
+    opdrachten.forEach((opdracht, index) => {
       const punten = puntenVoor(index);
       const isGeselecteerd = data.selectie.includes(index);
 
       const kaart = document.createElement("div");
       kaart.className = "kaart" + (isGeselecteerd ? " selected" : "");
 
+      const inhoud = document.createElement("div");
+      inhoud.className = "inhoud";
+
       const span = document.createElement("span");
       span.className = "tekst";
-      span.textContent = vulTekstIn(template, punten);
+      span.innerHTML = vulTekstIn(opdracht.tekst, punten);
+      inhoud.appendChild(span);
+
+      if (opdracht.toelichting) {
+        const toelichting = document.createElement("span");
+        toelichting.className = "toelichting";
+        toelichting.textContent = "(" + opdracht.toelichting + ")";
+        inhoud.appendChild(toelichting);
+      }
 
       const miniCijfer = document.createElement("span");
       miniCijfer.className = "mini-cijfer";
       miniCijfer.textContent = punten;
 
-      kaart.appendChild(span);
+      kaart.appendChild(inhoud);
       kaart.appendChild(miniCijfer);
 
       kaart.addEventListener("click", () => {
