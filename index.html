@@ -126,9 +126,16 @@
     flex-wrap: wrap;
     gap: 12px;
     margin-bottom: 14px;
+    width: 100%;
   }
-  .knoppenrij-rechts { display: flex; align-items: center; gap: 12px; flex-wrap: nowrap; }
-  .terug, .ongedaan, .reset { white-space: nowrap; }
+  .knoppenrij-rechts { display: flex; align-items: center; gap: 12px; flex-wrap: nowrap; min-width: 0; flex-shrink: 1; }
+  .terug, .ongedaan, .reset {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    flex-shrink: 1;
+  }
 
   @media (max-width: 480px) {
     .knoppenrij { flex-wrap: nowrap; gap: 6px; }
