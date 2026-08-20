@@ -22,6 +22,7 @@
     --accent: #0094FF;
     --accent-50: rgba(0, 148, 255, 0.5);
   }
+  body.scherm-opdrachten { background: var(--accent); }
   body.team-rood { --accent: #F23D3D; --accent-50: rgba(242, 61, 61, 0.5); }
 
   .wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding: 18px 20px 24px; }
@@ -130,7 +131,15 @@
   .terug, .ongedaan, .reset { white-space: nowrap; }
 
   @media (max-width: 480px) {
-    .terug, .ongedaan, .reset { font-size: 12px; padding-left: 16px; padding-right: 16px; }
+    .knoppenrij { flex-wrap: nowrap; gap: 6px; }
+    .knoppenrij-rechts { gap: 6px; }
+    .terug, .ongedaan, .reset {
+      font-size: 10px;
+      letter-spacing: 0.1px;
+      padding-left: 10px;
+      padding-right: 10px;
+      border-radius: 6px;
+    }
   }
 
   .ongedaan {
@@ -541,6 +550,7 @@
 
     document.body.classList.remove("team-rood");
     if (teams[teamKey].kleurklasse) document.body.classList.add(teams[teamKey].kleurklasse);
+    document.body.classList.add("scherm-opdrachten");
 
     const themeMeta = document.querySelector('meta[name="theme-color"]');
     if (themeMeta) themeMeta.setAttribute("content", teamKey === "team2" ? "#F23D3D" : "#0094FF");
@@ -553,6 +563,7 @@
   function naarTeamkeuze() {
     document.getElementById("opdrachten-scherm").classList.add("verborgen");
     document.getElementById("team-keuze").classList.remove("verborgen");
+    document.body.classList.remove("scherm-opdrachten");
     const themeMeta = document.querySelector('meta[name="theme-color"]');
     if (themeMeta) themeMeta.setAttribute("content", "#F4F4F4");
   }
